@@ -108,7 +108,7 @@ const FraudDetectionDashboard: React.FC = () => {
                 {/* Fraud Alert */}
                 <div className="bg-red-100 text-sm text-red-700 p-4 rounded-lg mb-6 border-l-4 border-red-600">
                     <strong>Fraud Alert</strong>
-                    <p>This user has filed 5 disputes in the last month</p>
+                    <p>This buyer has filed 5 disputes in the last month</p>
                 </div>
 
                 {/* Chat Log Preview */}

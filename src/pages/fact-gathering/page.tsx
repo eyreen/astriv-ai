@@ -1,7 +1,10 @@
 import Sidebar from "@/components/side-bar";
-import React from "react";
+import Link from "next/link";
+import React, { useState } from "react";
 
 const DisputeResolutionPage: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="flex h-screen font-montserrat">
       <Sidebar />
@@ -80,12 +83,12 @@ const DisputeResolutionPage: React.FC = () => {
           <div className="mt-5 bg-blue-50 p-6 rounded-lg mb-6 border border-blue-300">
             <h3 className="text-md font-semibold text-gray-800 mb-2">AI Recommendation</h3>
             <div className="mt-4 bg-white p-4 rounded-md">
-            <p className="text-sm text-gray-600 mb-3">
-              Based on the gathered facts, we recommend:
-            </p>
-            <span className="text-blue-600 font-semibold cursor-pointer text-md">
-              Refund Buyer $50.00
-            </span>
+              <p className="text-sm text-gray-600 mb-3">
+                Based on the gathered facts, we recommend:
+              </p>
+              <span className="text-blue-600 font-semibold cursor-pointer text-md">
+                Refund Buyer $50.00
+              </span>
             </div>
 
             {/* Smart Contract Execution Timer */}
@@ -105,6 +108,11 @@ const DisputeResolutionPage: React.FC = () => {
             </button>
           </div>
         </div>
+        <Link href={'/what-if/page'}>
+          <button className="bg-gradient-to-r from-red-600 to-red-400 p-3 rounded-lg border border-red-500 text-sm text-white w-full">
+            Explore What-IF AI Simulator ✨
+          </button>
+        </Link>
       </div>
     </div>
   );
