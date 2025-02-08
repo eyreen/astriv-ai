@@ -37,28 +37,28 @@ const Sidebar: React.FC = () => {
                 <nav>
                     <ul className="ml-2 mr-2">
                         <li>
-                            <Link href={`/corporate/${id}/data-form`}>
+                            <Link href={`/data-form/page`}>
                                 <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-red-600 to-red-400 hover:text-white hover:rounded-md font-bold text-md cursor-pointer text-gray-400">
                                     Data Form
                                 </div>
                             </Link>
                         </li>
                         <li>
-                            <Link href={`/corporate/${id}/context-analysis`}>
+                            <Link href={`/context-analysis/page`}>
                                 <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-red-600 to-red-400 hover:text-white hover:rounded-md font-bold text-md cursor-pointer text-gray-400">
                                     Context Analysis
                                 </div>
                             </Link>
                         </li>
                         <li>
-                            <Link href={`/corporate/${id}/facts-gathering`}>
+                            <Link href={`/fact-gathering/page`}>
                                 <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-red-600 to-red-400 hover:text-white hover:rounded-md font-bold text-md cursor-pointer text-gray-400">
                                     Facts Gathering
                                 </div>
                             </Link>
                         </li>
                         <li>
-                            <Link href={`/corporate/${id}/fraud-detection`}>
+                            <Link href={`/fraud-detection/page`}>
                                 <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-red-600 to-red-400 hover:text-white hover:rounded-md font-bold text-md cursor-pointer text-gray-400">
                                     Fraud Detection
                                 </div>
