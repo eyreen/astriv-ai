@@ -1,4 +1,5 @@
 import Sidebar from '@/components/side-bar';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
@@ -226,114 +227,116 @@ const DisputeDetails = () => {
             </div>
           </div>
 
-          {/* Right Section - AI Analysis */}
-          <div className="basis-2/4 bg-white shadow-lg rounded-lg p-8 ml-2">
-            <h2 className="text-lg font-semibold text-gray-700 mb-2">AI Analysis</h2>
-            <div className="pt-2 rounded-lg">
-              {/* Loading State */}
-              {isLoading && (
-                <div className="text-center py-8">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="animate-spin h-8 w-8 mx-auto text-blue-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                  <p className="mt-4 text-grey-600">AI is analyzing...</p>
-                </div>
-              )}
-
-              {/* Confidence and Progress Bar */}
-              {showConfidence && (
-                <div>
-                  <p className="text-gray-600">
-                    <span className="font-medium">Resolution Confidence:</span> {dispute.aiAnalysis.confidence}
-                  </p>
-                  <div className="mt-2 bg-gray-200 rounded-full h-2.5 overflow-hidden mb-4">
-                    <div
-                      className="bg-green-500 h-2.5 transition-all duration-500 ease-in-out"
-                      style={{ width: `${progress}%` }}
-                    ></div>
+          <Link href="/fact-gathering/page">
+            {/* Right Section - AI Analysis */}
+            <div className="basis-2/4 bg-white shadow-lg rounded-lg p-8 ml-2">
+              <h2 className="text-lg font-semibold text-gray-700 mb-2">AI Analysis</h2>
+              <div className="pt-2 rounded-lg">
+                {/* Loading State */}
+                {isLoading && (
+                  <div className="text-center py-8">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="animate-spin h-8 w-8 mx-auto text-blue-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
+                    </svg>
+                    <p className="mt-4 text-grey-600">AI is analyzing...</p>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Points List */}
-              {dispute.aiAnalysis.points.map((point, index) => {
-                const isCurrentPoint = visiblePoints === index + 1; // Check if this point is currently being processed
-                const isProcessed = visiblePoints > index + 1; // Check if this point has already been processed
+                {/* Confidence and Progress Bar */}
+                {showConfidence && (
+                  <div>
+                    <p className="text-gray-600">
+                      <span className="font-medium">Resolution Confidence:</span> {dispute.aiAnalysis.confidence}
+                    </p>
+                    <div className="mt-2 bg-gray-200 rounded-full h-2.5 overflow-hidden mb-4">
+                      <div
+                        className="bg-green-500 h-2.5 transition-all duration-500 ease-in-out"
+                        style={{ width: `${progress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
 
-                return (
-                  <li key={index} className="flex items-center space-x-2 text-gray-600 text-sm mb-2">
-                    {/* Loading Animation or SVG */}
-                    {isProcessed || isCurrentPoint ? (
-                      isProcessed ? (
-                        // Show SVG after processing
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-5 h-5 text-green-500 shrink-0"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      ) : (
-                        // Show loading spinner while processing
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="animate-spin h-5 w-5 text-blue-500 shrink-0"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                          />
-                        </svg>
-                      )
-                    ) : null}
+                {/* Points List */}
+                {dispute.aiAnalysis.points.map((point, index) => {
+                  const isCurrentPoint = visiblePoints === index + 1; // Check if this point is currently being processed
+                  const isProcessed = visiblePoints > index + 1; // Check if this point has already been processed
 
-                    {/* Text */}
-                    {isProcessed ? (
-                      // Show the actual text after processing
-                      <span>{point.text}</span>
-                    ) : isCurrentPoint ? (
-                      // Flickering "Analyzing..." text while processing
-                      <span className="animate-pulse">Analyzing...</span>
-                    ) : null}
-                  </li>
-                );
-              })}
+                  return (
+                    <li key={index} className="flex items-center space-x-2 text-gray-600 text-sm mb-2">
+                      {/* Loading Animation or SVG */}
+                      {isProcessed || isCurrentPoint ? (
+                        isProcessed ? (
+                          // Show SVG after processing
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-5 h-5 text-green-500 shrink-0"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        ) : (
+                          // Show loading spinner while processing
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="animate-spin h-5 w-5 text-blue-500 shrink-0"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                            />
+                          </svg>
+                        )
+                      ) : null}
 
-              {/* Action Buttons */}
-              {visiblePoints === dispute.aiAnalysis.points.length + 1 && (
-                <div className="mt-6 flex flex-col space-y-4">
-                  <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 w-full">
-                    Accept Recommendation
-                  </button>
-                  <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
-                    Request Human Review
-                  </button>
-                </div>
-              )}
-              
+                      {/* Text */}
+                      {isProcessed ? (
+                        // Show the actual text after processing
+                        <span>{point.text}</span>
+                      ) : isCurrentPoint ? (
+                        // Flickering "Analyzing..." text while processing
+                        <span className="animate-pulse">Analyzing...</span>
+                      ) : null}
+                    </li>
+                  );
+                })}
+
+                {/* Action Buttons */}
+                {visiblePoints === dispute.aiAnalysis.points.length + 1 && (
+                  <div className="mt-6 flex flex-col space-y-4">
+                    <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 w-full">
+                      Accept Recommendation
+                    </button>
+                    <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                      Request Human Review
+                    </button>
+                  </div>
+                )}
+                
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
