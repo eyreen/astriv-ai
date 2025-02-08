@@ -15,24 +15,21 @@ const DisputeDetails = () => {
   const dispute = {
     id: '12345',
     status: 'In Progress',
-    created: 'Jan 15, 2025',
+    created: '09 Feb 2025',
     buyer: {
+      name: 'Sarah Johnson',
+      image: 'https://play-lh.googleusercontent.com/7Ak4Ye7wNUtheIvSKnVgGL_OIZWjGPZNV6TP_3XLxHC-sDHLSE45aDg41dFNmL5COA=w240-h480-rw',
+      since: '2024',
+    },
+    seller: {
       name: 'John Smith',
       image: 'https://play-lh.googleusercontent.com/hJGHtbYSQ0nCnoEsK6AGojonjELeAh_Huxg361mVrPmzdwm8Ots-JzEH5488IS2nojI',
       since: '2024',
     },
-    seller: {
-      name: 'Tech Solutions Ltd',
-      image: 'https://play-lh.googleusercontent.com/7Ak4Ye7wNUtheIvSKnVgGL_OIZWjGPZNV6TP_3XLxHC-sDHLSE45aDg41dFNmL5COA=w240-h480-rw',
-      type: 'Verified Business',
-    },
     transactionDetails: {
-      amount: '$599.99',
-      orderNumber: '#987654',
-      orderDate: 'Jan 10, 2025',
+      amount: 'RM 1000',
+      orderNumber: 'DERIV234',
     },
-    issue: 'Product hasn’t arrived after 2 weeks of ordering',
-    flagged: 'Delivery Delay',
     chatLogs: [
       {
         user: 'Buyer',
@@ -47,22 +44,17 @@ const DisputeDetails = () => {
     ],
     documentUploaded: [
       {
-        date: 'Jan 10, 2025',
-        description: 'Order Placed',
-        amount: '$599.99',
-      },
-      {
-        date: 'Jan 12, 2025',
-        description: 'Payment Processed',
-        amount: '$599.99',
-      },
+        date: '2 Feb 2029',
+        description: 'DERIV234',
+        amount: 'RM1000',
+      }
     ],
     aiAnalysis: {
-      confidence: '85%',
+      confidence: '90%',
       points: [
-        { text: 'Chat analysis indicates buyer dissatisfaction due to delayed delivery', checked: true },
-        { text: 'Seller has acknowledged the delay in responses', checked: true },
-        { text: 'Document Uploaded shows payment processed successfully', checked: true },
+        { text: 'Analysis of the chat reveals that the seller attempted to engage in fraudulent activity.', checked: true },
+        { text: 'The agreed-upon price at the beginning of the transaction was RM1000.', checked: true },
+        { text: 'The uploaded document confirms that the payment was successfully processed.', checked: true },
       ],
     },
   };
@@ -109,9 +101,9 @@ const DisputeDetails = () => {
       <Sidebar />
       <div className="pl-72 bg-gray-100 w-full p-6 overflow-auto">
         {/* Header */}
-        <div className="flex max-w-5xl mx-auto justify-between">
-          <h1 className="text-xl font-bold text-gray-800 mb-4">Dispute #{dispute.id}</h1>
-          <div className="text-l text-gray-600 mb-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-bold text-gray-800">Dispute #{dispute.id}</h1>
+          <div className="text-md font-bold text-gray-800">
             <span className="font-medium">Status:</span>{' '}
             <span
               className={`${
@@ -131,7 +123,7 @@ const DisputeDetails = () => {
         </div>
 
         {/* Buyer, Seller, and Transaction Details */}
-        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-8 my-4">
+        <div className="bg-white shadow-lg rounded-lg p-8 my-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Buyer Section */}
             <div>
@@ -160,7 +152,7 @@ const DisputeDetails = () => {
                 />
                 <div>
                   <p className="text-gray-600">{dispute.seller.name}</p>
-                  <p className="text-sm text-gray-500">{dispute.seller.type}</p>
+                  <p className="text-sm text-gray-500">Member since {dispute.seller.since}</p>
                 </div>
               </div>
             </div>
@@ -170,14 +162,14 @@ const DisputeDetails = () => {
               <h2 className="text-lg font-semibold text-gray-700">Transaction Details</h2>
               <p className="text-gray-600">{dispute.transactionDetails.amount}</p>
               <p className="text-sm text-gray-500">
-                Order {dispute.transactionDetails.orderNumber} - {dispute.transactionDetails.orderDate}
+                Transaction ID: {dispute.transactionDetails.orderNumber}
               </p>
             </div>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="flex max-w-5xl mx-auto">
+        <div className="flex">
           {/* Left Section */}
           <div className="flex-grow basis-3/4 bg-white shadow-lg rounded-lg p-8">
             {/* Tabs */}
@@ -185,7 +177,7 @@ const DisputeDetails = () => {
               <button
                 onClick={() => setActiveTab('Chat Logs')}
                 className={`pb-2 font-medium ${
-                  activeTab === 'Chat Logs' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600 hover:text-gray-800'
+                  activeTab === 'Chat Logs' ? 'border-b-2 border-red-500 text-red-500' : 'text-gray-600 hover:text-gray-800'
                 }`}
               >
                 Chat Logs
@@ -193,7 +185,7 @@ const DisputeDetails = () => {
               <button
                 onClick={() => setActiveTab('Document Uploaded')}
                 className={`pb-2 font-medium ${
-                  activeTab === 'Document Uploaded' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600 hover:text-gray-800'
+                  activeTab === 'Document Uploaded' ? 'border-b-2 border-red-500 text-red-500' : 'text-gray-600 hover:text-gray-800'
                 }`}
               >
                 Document Uploaded
@@ -218,8 +210,35 @@ const DisputeDetails = () => {
                   <h2 className="text-lg font-semibold text-gray-700 mb-2">Document Uploaded</h2>
                   {dispute.documentUploaded.map((item, index) => (
                     <div key={index} className="mb-4">
-                      <p className="text-gray-600"><span className="font-medium">{item.date}:</span> {item.description}</p>
-                      <p className="text-sm text-gray-500">{item.amount}</p>
+                      {/* Display document name */}
+                      <p className="text-gray-600">
+                        <span className="font-medium">{item.date}:</span> {item.description}
+                      </p>
+                      {/* Display additional details like amount */}
+                      <p className="text-sm text-gray-500 mt-1 mb-2">{item.amount}</p>
+                      {/* Add a link to download/view the document with an icon */}
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center text-red-500 hover:underline text-sm"
+                      >
+                        {/* Document Icon */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 mr-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                        View Document
+                      </a>
                     </div>
                   ))}
                 </div>
@@ -257,11 +276,11 @@ const DisputeDetails = () => {
                 {showConfidence && (
                   <div>
                     <p className="text-gray-600">
-                      <span className="font-medium">Resolution Confidence:</span> {dispute.aiAnalysis.confidence}
+                      <span className="font-medium">Fraudulent Detection:</span> {dispute.aiAnalysis.confidence}
                     </p>
                     <div className="mt-2 bg-gray-200 rounded-full h-2.5 overflow-hidden mb-4">
                       <div
-                        className="bg-green-500 h-2.5 transition-all duration-500 ease-in-out"
+                        className="bg-red-500 h-2.5 transition-all duration-500 ease-in-out"
                         style={{ width: `${progress}%` }}
                       ></div>
                     </div>
