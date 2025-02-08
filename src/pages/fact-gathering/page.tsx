@@ -68,16 +68,20 @@ const disputeDetails = [
 ];
 
 const disputeData = {
-  caseId: "#DR78392",
+  caseId: "##12345",
   status: "In Progress",
   factSummary: {
     paymentStatus: "Confirmed",
     deliveryStatus: "Pending",
-    transactionDate: "March 15, 2025",
+    transactionDate: "02 Feb 2025",
     amount: "RM 1,000.00",
   },
   aiRecommendation: {
-    recommendation: "Enforce the original agreed-upon price, and honor the original agreed price; with potential penalties if they refuse.",
+    recommendation: [
+      "It is recommended to enforce the original agreed-upon price and ensure compliance with the terms initially set forth.",
+      "In accordance with Malaysian law, any attempt to deviate from the agreed terms or engage in fraudulent activity may constitute a violation of the Consumer Protection Act 1999 or the Contracts Act 1950, which safeguard against unfair trade practices and breaches of contract.",
+      "In the event of non-compliance, potential penalties, including legal action or financial sanctions, may be applied to deter such behavior."
+    ]
   },
   factDetails: [
     "Transaction History: Verified",
@@ -163,7 +167,7 @@ const DisputeResolutionPage: React.FC = () => {
             </h2>
             <span
               className={`px-3 py-1 text-xs rounded-md border ${disputeData.status === "In Progress"
-                ? "bg-blue-100 text-blue-700 border-blue-500"
+                ? "bg-yellow-100 text-yellow-500 border-yellow-500"
                 : "bg-green-100 text-green-700 border-green-500"
                 }`}
             >
@@ -204,7 +208,7 @@ const DisputeResolutionPage: React.FC = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span className="text-green-600 text-sm ml-2">Transaction History</span>
+                    <span className="text-green-600 text-sm ml-2">Data Gathering</span>
                   </>
                 ) : (
                   <>
@@ -348,7 +352,7 @@ const DisputeResolutionPage: React.FC = () => {
                   </span>
                 </div>
                 <div className="bg-gray-50 border border-gray-300 rounded-lg shadow-md p-6">
-                  <h3 className="text-sm font-semibold text-gray-700 mb-1">Delivery Status</h3>
+                  <h3 className="text-sm font-semibold text-gray-700 mb-1">Sale Status</h3>
                   <span
                     className={`font-semibold ${disputeData.factSummary.deliveryStatus === "Pending"
                       ? "text-yellow-600"
@@ -377,9 +381,13 @@ const DisputeResolutionPage: React.FC = () => {
                 <p className="text-sm text-gray-600 mb-3">
                   Based on the gathered facts, we recommend:
                 </p>
-                <span className="text-red-500 font-semibold cursor-pointer text-sm">
-                  {disputeData.aiRecommendation.recommendation}
-                </span>
+                <ul className="space-y-2 text-sm">
+                  {disputeData.aiRecommendation.recommendation.map((point, index) => (
+                    <li key={index} className="flex items-center text-red-500 font-semibold">                      
+                      - {point}
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
             {showPopup && (

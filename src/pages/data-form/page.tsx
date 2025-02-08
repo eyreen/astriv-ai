@@ -153,7 +153,7 @@ const SubmitDispute = () => {
                     className="hidden"
                     id="chatLogs"
                 />
-                <label htmlFor="chatLogs" className="cursor-pointer text-blue-600 hover:text-blue-500">
+                <label htmlFor="chatLogs" className="cursor-pointer text-red-600 hover:text-red-500">
                     Drag and drop files here or click to browse
                 </label>
                 <textarea
@@ -199,7 +199,7 @@ const SubmitDispute = () => {
                     className="hidden"
                     id="supportingDocuments"
                 />
-                <label htmlFor="supportingDocuments" className="cursor-pointer text-blue-600 hover:text-blue-500">
+                <label htmlFor="supportingDocuments" className="cursor-pointer text-red-600 hover:text-red-500">
                     Drag and drop files here or click to browse
                 </label>
                 <p className="text-sm text-gray-500 mt-2 select-none">Maximum file size: 10MB (JPEG, PNG, PDF)</p>
@@ -225,7 +225,7 @@ const SubmitDispute = () => {
                     <button
                     type="submit"
                     onClick={handleSubmit}
-                    className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                         Submit Dispute
                     </button>

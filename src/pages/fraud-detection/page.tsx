@@ -29,8 +29,8 @@ const FraudDetectionDashboard: React.FC = () => {
                     {/* Seller Profile */}
                     <div className="relative border border-gray-300 bg-gray-50 p-4 rounded-lg shadow-md">
                         {/* Verified Seller Badge */}
-                        <span className="absolute top-4 right-4 px-2 py-1 bg-green-100 text-green-700 text-xs rounded-md border border-green-500">
-                            Verified Seller
+                        <span className="absolute top-4 right-4 px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-md border border-yellow-500">
+                            Moderate Risk
                         </span>
 
                         {/* First Row: Image & Name + Seller Role */}
@@ -47,8 +47,8 @@ const FraudDetectionDashboard: React.FC = () => {
                         </div>
 
                         {/* Second Row: Reputation Score */}
-                        <p className="text-green-600 font-bold text-3xl">
-                            92 <span className="text-gray-400 text-xs">/ 100 Reputation Score</span>
+                        <p className="text-yellow-600 font-bold text-3xl">
+                            62 <span className="text-red-400 text-sm">-30</span> <span className="text-gray-400 text-sm">/ 100 Reputation Score</span>
                         </p>
 
                         {/* Third Row: Additional Details */}
@@ -61,7 +61,7 @@ const FraudDetectionDashboard: React.FC = () => {
                                 </span>
                                 <span className="text-black text-sm">Active since 2024</span>
                             </p>
-                            <p className="mt-1 text-black">⭐ <span className="ml-1">4.8/5 Average Rating</span></p>
+                            <p className="mt-1 text-black">⭐ <span className="ml-1">2.5/5 Average Rating</span></p>
                         </div>
                     </div>
 
@@ -69,8 +69,8 @@ const FraudDetectionDashboard: React.FC = () => {
                     {/* Buyer Profile */}
                     <div className="relative border border-gray-300 bg-gray-50 p-4 rounded-lg shadow-md">
                         {/* Moderate Risk Badge */}
-                        <span className="absolute top-4 right-4 px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-md border border-yellow-500">
-                            Moderate Risk
+                        <span className="absolute top-4 right-4 px-2 py-1 bg-green-100 text-green-700 text-xs rounded-md border border-green-500">
+                            Verified user
                         </span>
 
                         {/* First Row: Image & Name + Role */}
@@ -88,7 +88,7 @@ const FraudDetectionDashboard: React.FC = () => {
 
                         {/* Second Row: Reputation Score */}
                         <p className="text-yellow-600 font-bold text-3xl">
-                            76 <span className="text-gray-400 text-xs">/ 100 Reputation Score</span>
+                            76 <span className="text-green-400 text-xs">+5</span> <span className="text-gray-400 text-sm">/ 100 Reputation Score</span>
                         </p>
 
                         {/* Third Row: Additional Details */}
@@ -109,7 +109,7 @@ const FraudDetectionDashboard: React.FC = () => {
                 {/* Fraud Alert */}
                 <div className="bg-red-100 text-sm text-red-700 p-4 rounded-lg mb-6 border-l-4 border-red-600">
                     <strong>Fraud Alert</strong>
-                    <p>This buyer has filed 5 disputes in the last month</p>
+                    <p>This seller has recently attempted to commit a fraud</p>
                 </div>
 
                 {/* Chat Log Preview */}

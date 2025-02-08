@@ -5,6 +5,11 @@ const WhatIfPage: React.FC = () => {
   const [showOutcome, setShowOutcome] = useState(false);
   const [loading, setLoading] = useState(false); // New state for loading
   const [files, setFiles] = useState<File[]>([]);
+  const [issueDescription, setIssueDescription] = useState('');
+
+  function setIssue (): void {
+    setIssueDescription("The seller wanted to increase price from the original agreement");
+  }
 
   // Handle file selection
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,18 +88,18 @@ const WhatIfPage: React.FC = () => {
             <h3 className="text-md font-semibold text-gray-700 mb-2">Adjust Parameters</h3>
             <label className="text-sm font-semibold text-gray-700 block mb-2">Communication Tone</label>
             <select className="w-full text-sm p-2 border border-gray-300 rounded-md mb-2">
+              <option>Neutral</option>
               <option>Polite</option>
               <option>Assertive</option>
-              <option>Neutral</option>
             </select>
             <label className="text-sm font-semibold text-gray-700 block mb-2">Dispute Category</label>
             <select className="w-full text-sm p-2 border border-gray-300 rounded-md mb-2">
+              <option>Fraudulent Charge</option>
               <option>Buyer Not Paid</option>
               <option>Item Not Received</option>
-              <option>Fraudulent Charge</option>
             </select>
-            <label className="text-sm font-semibold text-gray-700 block mb-2">Additional Details</label>
-            <textarea className="w-full text-sm p-2 border border-gray-300 rounded-md"></textarea>
+            <label className="text-sm font-semibold text-gray-700 block mb-2" onClick={() => setIssue()}>Additional Details</label>
+            <textarea className="w-full text-sm p-2 border border-gray-300 rounded-md" value={issueDescription}></textarea>
           </div>
           {/* Submit Button */}
           <button
@@ -113,7 +118,7 @@ const WhatIfPage: React.FC = () => {
             <div className="text-center py-8">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="animate-spin h-8 w-8 mx-auto text-blue-500"
+                className="animate-spin h-8 w-8 mx-auto text-red-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -138,15 +143,15 @@ const WhatIfPage: React.FC = () => {
             <h2 className="text-lg font-semibold text-gray-800 text-center mb-5">Potential Outcomes</h2>
             <div className="flex">
               <div className="pr-2">
-                <p className="text-2xl font-bold text-green-600 text-center">75%</p>
+                <p className="text-2xl font-bold text-green-600 text-center">90%</p>
                 <p className="text-sm text-green-600 text-center mb-4">Likelihood of Success</p>
               </div>
               <div className="px-2">
-                <p className="text-2xl font-bold text-red-600 text-center">20%</p>
+                <p className="text-2xl font-bold text-red-600 text-center">2%</p>
                 <p className="text-sm text-red-600 text-center mb-4">Likelihood of Fail</p>
               </div>
               <div className="pl-2">
-                <p className="text-2xl font-bold text-gray-900 text-center">5%</p>
+                <p className="text-2xl font-bold text-gray-900 text-center">8%</p>
                 <p className="text-sm text-gray-600 text-center mb-4">Likelihood of Escalating</p>
               </div>
             </div>
@@ -188,7 +193,7 @@ const WhatIfPage: React.FC = () => {
             </div>
             {/* Why It Matters */}
             <div className="mt-4 p-4 bg-gray-100 rounded-lg">
-              <h3 className="text-sm font-semibold text-gray-700">Why Does This Matter?</h3>
+              <h3 className="text-sm font-semibold text-gray-700">Recommended Course of Action</h3>
               <ul className="text-xs text-gray-600 mt-2">
                 <li className="mb-2 flex">
                   <svg
@@ -205,7 +210,7 @@ const WhatIfPage: React.FC = () => {
                     <path d="M11 17h2v-6h-2v6Z" />
                     <circle cx="12" cy="8" r="1" />
                   </svg>
-                  <span className="text-grey-600 text-sm ml-2">Avoid moving conversations to external platforms</span>
+                  <span className="text-grey-600 text-sm ml-2">Submit the dispute form to receive the goods or a refund</span>
                 </li>
                 <li className="mb-2 flex">
                   <svg
@@ -222,7 +227,7 @@ const WhatIfPage: React.FC = () => {
                     <path d="M11 17h2v-6h-2v6Z" />
                     <circle cx="12" cy="8" r="1" />
                   </svg>
-                  <span className="text-grey-600 text-sm ml-2">Use video proof for better reliability</span>
+                  <span className="text-grey-600 text-sm ml-2">Avoid further contact with the other party to prevent escalation of the issue</span>
                 </li>
               </ul>
             </div>

@@ -256,7 +256,7 @@ const DisputeDetails = () => {
                   <div className="text-center py-8">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="animate-spin h-8 w-8 mx-auto text-blue-500"
+                      className="animate-spin h-8 w-8 mx-auto text-red-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -314,7 +314,7 @@ const DisputeDetails = () => {
                           // Show loading spinner while processing
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="animate-spin h-5 w-5 text-blue-500 shrink-0"
+                            className="animate-spin h-5 w-5 text-red-500 shrink-0"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -347,7 +347,7 @@ const DisputeDetails = () => {
                     <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 w-full">
                       Accept Recommendation
                     </button>
-                    <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                    <button className="bg-gray-200 text-gray-800 border-gray-500 px-6 py-2 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 w-full">
                       Request Human Review
                     </button>
                   </div>
