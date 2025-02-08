@@ -1,17 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import Link from 'next/link';
+import ChatInterface from '@/pages/chat/page';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
-const Sidebar: React.FC = () => {
-    const router = useRouter();
-    const { id } = router.query;
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+const Sidebar = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const id = searchParams?.get("id") || "";
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
     return (
         <>
@@ -37,7 +40,7 @@ const Sidebar: React.FC = () => {
                 <nav>
                     <ul className="ml-2 mr-2">
                         <li>
-                            <Link href={`/data-form/page`}>
+                            <Link href={`/data-form`}>
                                 <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-red-600 to-red-400 hover:text-white hover:rounded-md font-bold text-md cursor-pointer text-gray-400">
                                     Data Form
                                 </div>
