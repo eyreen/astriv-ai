@@ -1,6 +1,71 @@
 import Sidebar from "@/components/side-bar";
+import { Info, X, ChevronDown, ChevronUp, } from "lucide-react";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
+const disputeDetails = [
+  {
+    title: "Transaction History",
+    status: "Verified ✅",
+    details: [
+      "Payment gateway records (e.g., PayPal, Stripe, blockchain transactions)",
+      "Bank transaction statements",
+      "Seller’s and buyer’s order history",
+      "Invoices and receipts from the platform",
+    ],
+  },
+  {
+    title: "Blockchain Analysis",
+    status: "In Progress ⏳",
+    details: [
+      "Smart contract transactions on Ethereum/Solana/etc.",
+      "Token transfers and wallet activity",
+      "Confirmation of fund movements through blockchain explorers",
+      "Fraud detection flags (e.g., flagged addresses, mixer interactions)",
+    ],
+  },
+  {
+    title: "Policy References",
+    status: "Article 5, Section B 📜",
+    details: [
+      "Platform’s dispute resolution policies",
+      "Terms of Service and Buyer Protection Policy",
+      "Relevant international consumer protection laws",
+      "Arbitration guidelines for online marketplaces",
+    ],
+  },
+  {
+    title: "Chat Logs",
+    status: "Extracted Key Messages 💬",
+    details: [
+      "Seller-buyer conversation history on platform chat",
+      "Email or customer service ticket records",
+      "AI-powered sentiment analysis to detect fraudulent behavior",
+      "Timestamped logs to verify response time and intent",
+    ],
+  },
+  {
+    title: "Transactional Data",
+    status: "Cross-Checked with Ledger 📊",
+    details: [
+      "Internal ledger reconciliation",
+      "Cross-validation with seller’s inventory management",
+      "Third-party payment processor verification",
+      "Any manual adjustments made to transactions",
+    ],
+  },
+  {
+    title: "Past History",
+    status: "Seller has 2 Similar Disputes 🕵️",
+    details: [
+      "Seller’s previous dispute resolution cases",
+      "History of chargebacks and refund requests",
+      "Customer complaints and reviews",
+      "AI pattern detection for repeated dispute behavior",
+    ],
+  },
+];
 
 const disputeData = {
   caseId: "#DR78392",
@@ -9,11 +74,20 @@ const disputeData = {
     paymentStatus: "Confirmed",
     deliveryStatus: "Pending",
     transactionDate: "March 15, 2025",
-    amount: "$250.00 USD",
+    amount: "RM 1,000.00",
   },
   aiRecommendation: {
-    recommendation: "Refund Buyer $50.00",
+    recommendation: "Enforce the original agreed-upon price, and honor the original agreed price; with potential penalties if they refuse.",
   },
+  factDetails: [
+    "Transaction History: Verified",
+    "Blockchain Analysis: In Progress",
+    "Smart Contract Verification: Pending",
+    "Policy References: Article 5, Section B",
+    "Chat Logs: Extracted key messages",
+    "Transactional Data: Cross-checked with ledger",
+    "Past History: Seller has 2 similar disputes",
+  ],
 };
 
 const DisputeResolutionPage: React.FC = () => {
@@ -22,8 +96,10 @@ const DisputeResolutionPage: React.FC = () => {
     blockchainAnalysis: false,
     smartContractVerification: false,
   });
+  const [expanded, setExpanded] = useState<number | null>(null);
   const [showFactSummary, setShowFactSummary] = useState(false);
   const [showAIRecommendation, setShowAIRecommendation] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [countdown, setCountdown] = useState(24 * 60 * 60); // 24 hours in seconds
 
   useEffect(() => {
@@ -86,11 +162,10 @@ const DisputeResolutionPage: React.FC = () => {
               Case ID: <span className="text-gray-800">{disputeData.caseId}</span>
             </h2>
             <span
-              className={`px-3 py-1 text-xs rounded-md border ${
-                disputeData.status === "In Progress"
-                  ? "bg-blue-100 text-blue-700 border-blue-500"
-                  : "bg-green-100 text-green-700 border-green-500"
-              }`}
+              className={`px-3 py-1 text-xs rounded-md border ${disputeData.status === "In Progress"
+                ? "bg-blue-100 text-blue-700 border-blue-500"
+                : "bg-green-100 text-green-700 border-green-500"
+                }`}
             >
               {disputeData.status}
             </span>
@@ -103,8 +178,15 @@ const DisputeResolutionPage: React.FC = () => {
         <div className="grid grid-cols-3 gap-6">
           {/* 2/3 Section - Fact Gathering and Summary */}
           <div className="col-span-2">
+          <div className="mt-5 bg-green-100 text-sm text-green-700 p-4 rounded-lg mb-6 border-l-4 border-green-600">
+                    <strong>Info</strong>
+                    <p>Click on the INFO icon to learn more of data sources utilized to resolve the dispute scenario.</p>
+                </div>
             {/* Fact Gathering Progress */}
-            <div className="mt-4 bg-gray-50 rounded-md border border-gray-300 shadow-md p-6 mb-6">
+            <div className=" bg-gray-50 rounded-md border border-gray-300 shadow-md p-6 mb-4 relative">
+              <button onClick={() => setShowPopup(true)} className="absolute top-4 right-4">
+                <Info className="w-5 h-5 text-red-500 cursor-pointer hover:text-red-600" />
+              </button>
               <h3 className="text-md font-semibold text-gray-700 mb-3">Fact Gathering Progress</h3>
               {/* Transaction History */}
               <div className="flex items-center mb-2">
@@ -145,9 +227,8 @@ const DisputeResolutionPage: React.FC = () => {
                 )}
                 <div className="flex-1 h-2 bg-gray-200 rounded-full ml-4">
                   <div
-                    className={`h-2 rounded-full ${
-                      loadingStates.transactionHistory ? "bg-green-500" : "bg-blue-500"
-                    }`}
+                    className={`h-2 rounded-full ${loadingStates.transactionHistory ? "bg-green-500" : "bg-blue-500"
+                      }`}
                     style={{
                       width: loadingStates.transactionHistory ? "100%" : "0%",
                       transition: "width 2s ease-in-out",
@@ -194,9 +275,8 @@ const DisputeResolutionPage: React.FC = () => {
                 )}
                 <div className="flex-1 h-2 bg-gray-200 rounded-full ml-4">
                   <div
-                    className={`h-2 rounded-full ${
-                      loadingStates.blockchainAnalysis ? "bg-green-500" : "bg-blue-500"
-                    }`}
+                    className={`h-2 rounded-full ${loadingStates.blockchainAnalysis ? "bg-green-500" : "bg-blue-500"
+                      }`}
                     style={{
                       width: loadingStates.blockchainAnalysis ? "100%" : "0%",
                       transition: "width 2s ease-in-out",
@@ -243,9 +323,8 @@ const DisputeResolutionPage: React.FC = () => {
                 )}
                 <div className="flex-1 h-2 bg-gray-200 rounded-full ml-4">
                   <div
-                    className={`h-2 rounded-full ${
-                      loadingStates.smartContractVerification ? "bg-green-500" : "bg-blue-500"
-                    }`}
+                    className={`h-2 rounded-full ${loadingStates.smartContractVerification ? "bg-green-500" : "bg-blue-500"
+                      }`}
                     style={{
                       width: loadingStates.smartContractVerification ? "100%" : "0%",
                       transition: "width 2s ease-in-out",
@@ -256,15 +335,14 @@ const DisputeResolutionPage: React.FC = () => {
             </div>
             {/* Fact Summary */}
             {showFactSummary && (
-              <div className="grid grid-cols-2 gap-6 mb-6">
+              <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="bg-gray-50 border border-gray-300 rounded-lg shadow-md p-6">
                   <h3 className="text-sm font-semibold text-gray-700 mb-1">Payment Status</h3>
                   <span
-                    className={`font-semibold ${
-                      disputeData.factSummary.paymentStatus === "Confirmed"
-                        ? "text-green-600"
-                        : "text-red-600"
-                    }`}
+                    className={`font-semibold ${disputeData.factSummary.paymentStatus === "Confirmed"
+                      ? "text-green-600"
+                      : "text-red-600"
+                      }`}
                   >
                     {disputeData.factSummary.paymentStatus}
                   </span>
@@ -272,11 +350,10 @@ const DisputeResolutionPage: React.FC = () => {
                 <div className="bg-gray-50 border border-gray-300 rounded-lg shadow-md p-6">
                   <h3 className="text-sm font-semibold text-gray-700 mb-1">Delivery Status</h3>
                   <span
-                    className={`font-semibold ${
-                      disputeData.factSummary.deliveryStatus === "Pending"
-                        ? "text-yellow-600"
-                        : "text-green-600"
-                    }`}
+                    className={`font-semibold ${disputeData.factSummary.deliveryStatus === "Pending"
+                      ? "text-yellow-600"
+                      : "text-green-600"
+                      }`}
                   >
                     {disputeData.factSummary.deliveryStatus}
                   </span>
@@ -293,16 +370,65 @@ const DisputeResolutionPage: React.FC = () => {
             )}
           </div>
           {/* 1/3 Section - AI Recommendation & Buttons */}
-          <div className="mt-5 bg-blue-50 p-6 rounded-lg mb-6 border border-blue-300">
+          <div className="mt-5 bg-red-50 p-6 rounded-lg mb-6 border border-red-300">
             <h3 className="text-md font-semibold text-gray-800 mb-2">AI Recommendation</h3>
             {showAIRecommendation && (
               <div className="mt-4 bg-white p-4 rounded-md">
                 <p className="text-sm text-gray-600 mb-3">
                   Based on the gathered facts, we recommend:
                 </p>
-                <span className="text-blue-600 font-semibold cursor-pointer text-md">
+                <span className="text-red-500 font-semibold cursor-pointer text-sm">
                   {disputeData.aiRecommendation.recommendation}
                 </span>
+              </div>
+            )}
+            {showPopup && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-auto">
+                <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full max-h-[90vh] overflow-auto relative">
+                  {/* Close Button */}
+                  <button
+                    className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-200 transition"
+                    onClick={() => setShowPopup(false)}
+                  >
+                    <X className="w-5 h-5 text-gray-600" />
+                  </button>
+
+                  <h2 className="text-lg font-semibold mb-4">Dispute Resolution Details</h2>
+                  <div className="overflow-auto max-h-[70vh]">
+                    {disputeDetails.map((item, index) => (
+                      <div key={index} className="mb-3 bg-white shadow-sm border border-gray-300 rounded-md">
+                        <div
+                          className="p-3 cursor-pointer flex justify-between items-center"
+                          onClick={() => setExpanded(expanded === index ? null : index)}
+                        >
+                          <div>
+                            <p className="font-semibold">{item.title}</p>
+                            <p className="text-sm text-gray-500">{item.status}</p>
+                          </div>
+                          {expanded === index ? (
+                            <ChevronUp className="w-4 h-4" />
+                          ) : (
+                            <ChevronDown className="w-4 h-4" />
+                          )}
+                        </div>
+                        {expanded === index && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="p-3 bg-gray-100 rounded-b-lg overflow-auto max-h-40"
+                          >
+                            <ul className="list-disc list-inside text-sm text-gray-700">
+                              {item.details.map((detail, i) => (
+                                <li key={i}>{detail}</li>
+                              ))}
+                            </ul>
+                          </motion.div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
             {/* Smart Contract Execution Timer */}
@@ -313,9 +439,11 @@ const DisputeResolutionPage: React.FC = () => {
               <span className="text-orange-700 font-bold text-xl">{formatTime(countdown)}</span>
             </div>
             {/* Stacked Action Buttons */}
-            <button className="mt-6 bg-green-600 text-sm text-white w-full px-4 py-2 rounded-lg font-semibold hover:bg-green-700 flex items-center justify-center gap-2">
-              ✅ Accept and Close Dispute
-            </button>
+            <Link href={"/fraud-detection/page"}>
+              <button className="mt-6 bg-green-600 text-sm text-white w-full px-4 py-2 rounded-lg font-semibold hover:bg-green-700 flex items-center justify-center gap-2">
+                ✅ Accept and Close Dispute
+              </button>
+            </Link>
             <button className="bg-gray-200 text-sm border border-gray-300 text-gray-800 w-full px-4 py-2 rounded-lg font-semibold hover:bg-gray-300 mt-2 flex items-center justify-center gap-2">
               ⚖️ Escalate to Moderator
             </button>
