@@ -16,6 +16,7 @@ const predefinedResponses: { [key: string]: string } = {
     "signal": "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
     "wechat": "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
     "viber": "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
+    "transfer": "Unfortunately you will have to pay more since extra fees are involved during the process.",
 };
 
 const ChatInterface: React.FC = () => {
@@ -28,6 +29,7 @@ const ChatInterface: React.FC = () => {
     const [isTyping, setIsTyping] = useState(false);
     const chatRef = useRef<HTMLDivElement>(null);
     const [showPopup, setShowPopup] = useState(false);
+    const [showPopupFlag, setShowPopupFlag] = useState(false);
     const [analysisStep, setAnalysisStep] = useState(0);
     const [fraudRisk, setFraudRisk] = useState(0); // Controls progress bar width
     const [typedText, setTypedText] = useState("");
@@ -116,12 +118,14 @@ const ChatInterface: React.FC = () => {
 
                     setMessages((prevMessages) => [...prevMessages, botResponse]);
 
-                    // If the response contains "WhatsApp", send a follow-up system warning
-                    if (responseKey === "ready") {
+                    // If the response contains "WhatsApp" or "Pay More", send a follow-up system warning
+                    if (responseKey === "ready" || responseKey === "transfer") {
                         setTimeout(() => {
                             const warningMessage = {
                                 id: Date.now() + 2,
-                                text: "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
+                                text: responseKey === "ready"
+                                    ? "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security."
+                                    : "⚠️ Fraud Detected: The seller is requesting additional payment. Please proceed with caution.",
                                 time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
                                 sender: "system",
                             };
@@ -155,7 +159,6 @@ const ChatInterface: React.FC = () => {
                 </div>
 
                 {/* Popup for More Information */}
-
                 {showPopup && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                         <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
@@ -172,7 +175,7 @@ const ChatInterface: React.FC = () => {
                                 <div className="mt-4 p-3 bg-gray-100 rounded-lg animate-fade-in">
                                     <h3 className="text-sm font-semibold text-gray-800">🔍 NLP Pattern Recognition</h3>
                                     <ul className="text-sm text-gray-700 list-disc pl-5 mt-2">
-                                        <li>📌 **Detected Phrase:** "<span className="font-semibold text-red-500">Let's continue on WhatsApp</span>"</li>
+                                        <li>📌 **Detected Phrase:** "<span className="font-semibold text-red-500">pay more</span>"</li>
                                         <li>📊 **Similarity Score:** 92.4% match with known fraudulent patterns.</li>
                                     </ul>
                                 </div>
@@ -206,13 +209,38 @@ const ChatInterface: React.FC = () => {
 
                             {/* Close Button */}
                             <Link href={'/data-form/page'}>
+                                <button
+                                    onClick={() => setShowPopup(false)}
+                                    className="mt-4 w-full bg-red-600 text-sm text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700"
+                                >
+                                    Astriv AI P2P Dispute Resolver -{">"}
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                )}
+
+                {showPopupFlag && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-lg font-bold text-gray-900">🚩 Flag this User</h2>
+                                <button onClick={() => setShowPopupFlag(false)} className="text-gray-700 hover:text-gray-900">✖</button>
+                            </div>
+
+                            {/* Notification that seller has been flagged */}
+                            <div className="mt-4 p-3 bg-green-100 rounded-lg animate-fade-in">
+                                <h3 className="text-sm font-semibold text-green-800">✅ Seller has been flagged successfully.</h3>
+                                <p className="text-sm text-green-700 mt-2">The seller has been flagged for further review. Our team will investigate the issue shortly.</p>
+                            </div>
+
+                            {/* Close Button */}
                             <button
-                                onClick={() => setShowPopup(false)}
+                                onClick={() => setShowPopupFlag(false)}
                                 className="mt-4 w-full bg-red-600 text-sm text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700"
                             >
-                                Astriv AI P2P Dispute Resolver -{">"}
+                                Close
                             </button>
-                            </Link>
                         </div>
                     </div>
                 )}
@@ -233,13 +261,24 @@ const ChatInterface: React.FC = () => {
                                     message.sender === "system" ? "bg-yellow-100 text-yellow-800  border-yellow-600" :
                                         "bg-gray-100 text-gray-900"}`}
                             >
-                                <div className="flex items-center gap-2">
-                                    {message.sender === "system" && <AlertTriangle className="w-4 h-4 text-yellow-700" />}
+                                <div className="flex items-center gap-2 flex-wrap">
+                                    {message.sender === "system"}
                                     <p>{message.text}</p>
                                     {message.sender === "system" && (
-                                        <button onClick={() => setShowPopup(true)} className="text-yellow-800 hover:text-yellow-900">
-                                            <Info className="w-4 h-4" />
-                                        </button>
+                                        <div className="w-full">
+                                            <button 
+                                                onClick={() => {
+                                                    if (message.text.includes("additional payment")) {
+                                                        setShowPopup(true); // Direct to showPopup for "Pay More"
+                                                    } else {
+                                                        setShowPopupFlag(true); // Direct to showPopupFlag for WhatsApp
+                                                    }
+                                                }} 
+                                                className="text-white text-xs mt-2 bg-red-500 rounded-md border border-red-200 p-2"
+                                            >
+                                                Learn More
+                                            </button>
+                                        </div>
                                     )}
                                 </div>
 
