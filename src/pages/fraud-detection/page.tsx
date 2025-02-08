@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "@/components/side-bar";
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, RadialBarChart, RadialBar } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, RadialBarChart, RadialBar, PieChart, Pie, Cell } from "recharts";
+import { Info } from "lucide-react";
 
 const fraudRiskData = [{ name: "Risk Level", uv: 85, fill: "#DC2626" }];
 const disputeData = [
@@ -133,29 +134,48 @@ const FraudDetectionDashboard: React.FC = () => {
                 </div> */}
 
                 {/* Data Analysis Charts */}
+                {/* Data Analysis Charts */}
                 <div className="grid grid-cols-3 gap-6 mb-6">
-                    <div className="bg-gray-50 p-4 rounded-lg">
+                    {/* Dispute Frequency Bar Chart */}
+                    <div className="bg-white p-4 rounded-lg shadow-md relative">
+                        <Info className="w-4 h-4 text-red-500 absolute top-4 right-4" />
                         <h3 className="text-md font-semibold text-gray-700 mb-2">Dispute Frequency</h3>
-                        <div className="h-32 bg-blue-200 flex items-end">
-                            <div className="w-1/4 h-1/6 bg-blue-600"></div>
-                            <div className="w-1/4 h-1/3 bg-blue-600"></div>
-                            <div className="w-1/4 h-2/3 bg-blue-600"></div>
-                            <div className="w-1/4 h-full bg-red-600"></div>
-                        </div>
+                        <ResponsiveContainer width="100%" height={120}>
+                            <BarChart data={disputeData}>
+                                <XAxis dataKey="name" tick={{ fontSize: 10 }} />
+                                <YAxis hide />
+                                <Tooltip />
+                                <Bar dataKey="disputes" fill="#2563EB" radius={[4, 4, 0, 0]} />
+                            </BarChart>
+                        </ResponsiveContainer>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
+
+                    {/* Response Time Radial Bar Chart */}
+                    <div className="bg-white p-4 rounded-lg shadow-md relative">
+                        <Info className="w-4 h-4 text-red-500 absolute top-4 right-4" />
                         <h3 className="text-md font-semibold text-gray-700 mb-2">Response Time</h3>
-                        <div className="h-6 bg-gray-200">
-                            <div className="h-6 bg-orange-500 w-3/4"></div>
-                        </div>
+                        <ResponsiveContainer width="100%" height={120}>
+                            <RadialBarChart innerRadius="60%" outerRadius="100%" data={responseTimeData} startAngle={90} endAngle={-270}>
+                                <RadialBar minAngle={15} background clockWise dataKey="value" fill="#F59E0B" />
+                                <Tooltip />
+                            </RadialBarChart>
+                        </ResponsiveContainer>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
+
+                    {/* Message Sentiment Pie Chart */}
+                    <div className="bg-white p-4 rounded-lg shadow-md relative">
+                        <Info className="w-4 h-4 text-red-500 absolute top-4 right-4" />
                         <h3 className="text-md font-semibold text-gray-700 mb-2">Message Sentiment</h3>
-                        <div className="h-32 flex items-end">
-                            <div className="w-1/3 h-2/3 bg-green-500"></div>
-                            <div className="w-1/3 h-1/3 bg-orange-500"></div>
-                            <div className="w-1/3 h-1/6 bg-red-500"></div>
-                        </div>
+                        <ResponsiveContainer width="100%" height={120}>
+                            <PieChart>
+                                <Pie data={sentimentData} dataKey="value" cx="50%" cy="50%" outerRadius={40} label>
+                                    {sentimentData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                                    ))}
+                                </Pie>
+                                <Tooltip />
+                            </PieChart>
+                        </ResponsiveContainer>
                     </div>
                 </div>
 
