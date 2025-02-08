@@ -33,13 +33,74 @@ const DisputeDetails = () => {
     chatLogs: [
       {
         user: 'Buyer',
-        message: 'Where is my order? It’s been 2 weeks!',
-        timestamp: 'Jan 24, 2025 10:30 AM',
+        message: "Hi, it's Sarah here.",
+        timestamp: 'Jan 24, 2025 10:10 AM',
       },
       {
         user: 'Seller',
-        message: 'We apologize for the delay. There’s been a backlog...',
-        timestamp: 'Jan 24, 2025 11:15 AM',
+        message: "Hey, nice meeting you. I'm John - how may I help you?",
+        timestamp: 'Jan 24, 2025 10:11 AM',
+      },
+      {
+        user: 'Buyer',
+        message:
+          "I'm interested in buying 0.5 bitcoin at the rate you've listed. Is it still available?",
+        timestamp: 'Jan 24, 2025 10:13 AM',
+      },
+      {
+        user: 'Seller',
+        message:
+          "Yes, it's available. My Final Price is RM1000. Are you ready to proceed with the payment?",
+        timestamp: 'Jan 24, 2025 10:15 AM',
+      },
+      {
+        user: 'Buyer',
+        message: "Sure, I'm ready.",
+        timestamp: 'Jan 24, 2025 10:16 AM',
+      },
+      {
+        user: 'Seller',
+        message:
+          "Great, I suggest us to move over to WhatsApp to discuss further on the details.",
+        timestamp: 'Jan 24, 2025 10:17 AM',
+      },
+      {
+        user: 'System',
+        message: 'Warning - [FLAGGED]',
+        timestamp: 'Jan 24, 2025 10:17 AM',
+      },
+      {
+        user: 'Buyer',
+        message:
+          "For security reasons, it's best to keep our communication here on the platform's chat.",
+        timestamp: 'Jan 24, 2025 10:18 AM',
+      },
+      {
+        user: 'Seller',
+        message: "Let's proceed with the payment. Please transfer the required amount.",
+        timestamp: 'Jan 24, 2025 10:19 AM',
+      },
+      {
+        user: 'Buyer',
+        message: "Sure, hold on one sec.",
+        timestamp: 'Jan 24, 2025 10:20 AM',
+      },
+      {
+        user: 'Buyer',
+        message:
+          "The transfer is now done, please refer to DERIV234 for transaction ID.",
+        timestamp: 'Jan 24, 2025 10:22 AM',
+      },
+      {
+        user: 'Seller',
+        message:
+          "Unfortunately, you will have to pay more since extra fees are involved during the process.",
+        timestamp: 'Jan 24, 2025 10:23 AM',
+      },
+      {
+        user: 'System',
+        message: 'Warning - [FRAUD DETECTED]',
+        timestamp: 'Jan 24, 2025 10:23 AM',
       },
     ],
     documentUploaded: [
@@ -106,14 +167,14 @@ const DisputeDetails = () => {
           <div className="text-md font-bold text-gray-800">
             <span className="font-medium">Status:</span>{' '}
             <span
-              className={`${
+              className={`px-3 py-1 text-xs rounded-md border ${
                 dispute.status === 'Complete'
-                  ? 'text-green-500'
+                  ? "bg-green-100 text-green-500 border-green-500"
                   : dispute.status === 'In Progress'
-                  ? 'text-yellow-500'
+                  ? "bg-yellow-100 text-yellow-500 border-yellow-500"
                   : dispute.status === 'Not Started'
-                  ? 'text-red-500'
-                  : 'text-gray-600'
+                  ? "bg-red-100 text-red-500 border-red-500"
+                  : "bg-grey-100 text-grey-500 border-grey-500"
               } font-bold`}
             >
               {dispute.status}

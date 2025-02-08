@@ -6,11 +6,11 @@ import { Send, AlertTriangle, Info } from "lucide-react";
 import Link from "next/link";
 
 const predefinedResponses: { [key: string]: string } = {
-    "bitcoin": "Yes, it's available. Are you ready to proceed with the payment?",
+    "bitcoin": "Yes, it's available. My Final Price is RM1000. Are you ready to proceed with the payment?",
     "payment": "I accept bank transfers and PayPal. Please ensure the payment is made from an account in your name.",
     "release": "Once I confirm the payment, I'll release the BTC within 30 minutes.",
     "ready": "Great, I suggest us to move over to WhatsApp to discuss further on the details.",
-    "security": "Let's proceed with the payment then, please transfer the required amount now.",
+    "security": "Let's proceed with the payment. Please transfer the required amount.",
     "whatsapp": "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
     "telegram": "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
     "messenger": "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
