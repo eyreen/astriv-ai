@@ -34,8 +34,8 @@ const Sidebar = () => {
                     isSidebarOpen ? "translate-x-0" : "-translate-x-full"
                 } lg:translate-x-0`}
             >
-                <div className="text-lg text-gray-400 px-6 py-6 font-bold">
-                    Module Management
+                <div className="text-lg text-red-400 px-6 py-6 font-bold">
+                    Astriv AI
                 </div>
                 <nav>
                     <ul className="ml-2 mr-2">

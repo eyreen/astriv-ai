@@ -6,28 +6,40 @@ const SubmitDispute = () => {
   const [chatLogs, setChatLogs] = useState<File | null>(null);
   const [transactionId, setTransactionId] = useState('');
   const [amount, setAmount] = useState('');
-  const [dateTime, setDateTime] = useState('');
+  const [date, setDate] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
   const [issueDescription, setIssueDescription] = useState('');
   const [supportingDocuments, setSupportingDocuments] = useState<File[]>([]);
   const [chatLogFileName, setChatLogFileName] = useState<string>(''); // State for chat log file name
   const [documentFileNames, setDocumentFileNames] = useState<string[]>([]); // State for supporting document file names
+  const [currency, setCurrency] = useState("RM"); // Default currency
 
   const handleSubmit = (e: React.FormEvent) => {
     // e.preventDefault();
   };
 
+  const currencies = [
+    { value: "RM", label: "RM" },
+    { value: "USD", label: "USD" },
+    { value: "EUR", label: "EUR" },
+    { value: "GBP", label: "GBP" },
+    { value: "JPY", label: "JPY" },
+    { value: "INR", label: "INR" },
+  ];
+
+  function setIssue (): void {
+    setIssueDescription("The seller wanted to increase price from the original agreement");
+  }
+
   return (
     <div className="flex h-screen font-montserrat">
         <Sidebar/>
         <div className="pl-72 bg-gray-100 w-full p-6 overflow-auto">
-        <div className="pt-5 pb-1">
-            <div className="max-w-4xl mx-auto select-none">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">Submit a Dispute</h1>
+        <div>
+            <h1 className="text-xl font-bold text-gray-800">Submit a Dispute</h1>
             <p className="text-gray-600 mb-4">Provide details about the issue, and we'll help you resolve it quickly.</p>
-            </div>
         </div>
-        <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-2 mb-2">
+        <div className="bg-white shadow-lg rounded-lg p-8 mt-2 mb-2">
             <form onSubmit={handleSubmit}>
             {/* Transaction Details */}
             <div className="mb-8">
@@ -36,27 +48,42 @@ const SubmitDispute = () => {
                 <input
                     type="text"
                     placeholder="Transaction ID"
-                    value={transactionId}
+                    value="DERIV234"
                     onChange={(e) => setTransactionId(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
+                <div className="flex space-x-2">
+                    {/* Currency Dropdown */}
+                    <select
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value)}
+                        className="w-48 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    >
+                        {currencies.map((option) => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                        ))}
+                    </select>
+                    {/* Amount Input */}
+                    <input
+                        type="number"
+                        placeholder="Amount"
+                        value="1000"
+                        onChange={(e) => setAmount(e.target.value)}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                </div>
                 <input
-                    type="number"
-                    placeholder="Amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <input
-                    type="datetime-local"
-                    value={dateTime}
-                    onChange={(e) => setDateTime(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type="date"
+                    value="2025-02-09"
+                    onChange={(e) => setDate(e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
                 <select
-                    value={paymentMethod}
+                    value="Bank Transfer"
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
                     <option value="">Select Payment Method</option>
                     <option value="Bank Transfer">Bank Transfer</option>
@@ -85,13 +112,13 @@ const SubmitDispute = () => {
 
             {/* Issue Description */}
             <div className="mb-8">
-                <label className="block text-sm font-bold text-gray-700 mb-2 select-none">Describe the Issue</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2 select-none" onClick={() => setIssue()}>Describe the Issue</label>
                 <textarea
-                placeholder="The seller did not confirm receipt of payment after I sent the funds..."
-                value={issueDescription}
-                onChange={(e) => setIssueDescription(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                rows={4}
+                    placeholder="The seller did not confirm receipt of payment after I sent the funds..."
+                    value={issueDescription}
+                    onChange={(e) => setIssueDescription(e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    rows={4}
                 ></textarea>
                 <div className="flex items-center mt-2 text-sm text-gray-500 select-none">
                 <svg
@@ -131,7 +158,7 @@ const SubmitDispute = () => {
                 </label>
                 <textarea
                     placeholder="Or paste your chat logs here..."
-                    className="w-full mt-4 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full mt-4 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     rows={4}
                 ></textarea>
                 {chatLogFileName && (
@@ -198,7 +225,7 @@ const SubmitDispute = () => {
                     <button
                     type="submit"
                     onClick={handleSubmit}
-                    className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                         Submit Dispute
                     </button>
