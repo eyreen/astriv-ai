@@ -10,6 +10,7 @@ const predefinedResponses: { [key: string]: string } = {
     "payment": "I accept bank transfers and PayPal. Please ensure the payment is made from an account in your name.",
     "release": "Once I confirm the payment, I'll release the BTC within 30 minutes.",
     "ready": "Great, I suggest us to move over to WhatsApp to discuss further on the details.",
+    "security": "Let's proceed with the payment then, please transfer the required amount now.",
     "whatsapp": "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
     "telegram": "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
     "messenger": "Warning: Moving conversations to external platforms is not allowed. Please keep all discussions here to ensure security.",
