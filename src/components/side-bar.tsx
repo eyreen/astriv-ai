@@ -40,7 +40,7 @@ const Sidebar = () => {
                 <nav>
                     <ul className="ml-2 mr-2">
                         <li>
-                            <Link href={`/data-form`}>
+                            <Link href={`/data-form/page`}>
                                 <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-red-600 to-red-400 hover:text-white hover:rounded-md font-bold text-md cursor-pointer text-gray-400">
                                     Data Form
                                 </div>
