@@ -159,7 +159,7 @@ const DisputeResolutionPage: React.FC = () => {
       <Sidebar />
       <div className="pl-72 bg-gray-100 w-full p-6 overflow-auto">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-800">Dispute Resolution Center</h1>
+          <h1 className="text-xl font-bold text-gray-800">Additional AI Analysis</h1>
           {/* Right-aligned Case ID and Progress */}
           <div className="ml-auto flex items-center space-x-4">
             <h2 className="text-sm font-semibold text-gray-700">
